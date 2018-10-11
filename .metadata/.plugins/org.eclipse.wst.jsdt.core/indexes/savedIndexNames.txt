@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/abstruct/Desktop/comp3095_assignment1/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3500762266.index
+927438615.index
+3534701419.index
+3678065553.index
+2687696918.index
+3591362575.index
