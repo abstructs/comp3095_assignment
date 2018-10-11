@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/abstruct/Desktop/comp3095_assignment"/>
+	</list>
+	<section name="ResourceNavigator">
+		<item value="Aggregate for window 1539299955017" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>
+		<item value="1" key="ResourceViewer.STORE_SORT_TYPE"/>
+		<item value="false" key="LINK_NAVIGATOR_TO_EDITOR"/>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+</section>
