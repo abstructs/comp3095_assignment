@@ -1,2 +1,5 @@
-/registrationServlets/
+/.DS_Store
+/dashboardServlets/
 /helper/
+/loginServlets/
+/registrationServlets/
