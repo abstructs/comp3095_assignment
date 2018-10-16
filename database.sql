@@ -1,8 +1,10 @@
-DELETE DATABASE IF EXISTS COMP3095;
+DROP DATABASE IF EXISTS COMP3095;
 
 CREATE DATABASE IF NOT EXISTS COMP3095;
 USE COMP3095;
-grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
+-- grant all priviledges on COMP3095.* to 'root'@'localhost' identified by 'admin'; 
+
+GRANT ALL PRIVILEGES ON COMP3095.* TO 'root'@'localhost' WITH GRANT OPTION;
 
 CREATE TABLE USERS 
 ( 
@@ -15,5 +17,4 @@ CREATE TABLE USERS
 	password varchar(20)	
 );
 
-INSERT INTO `USERS` (`firstname`, `lastname`, `email`, `role`, `password`) VALUES
-(NULL, NULL, `admin@domain.ca`, NULL, `P@ssword1`);
+INSERT INTO `USERS` (`firstname`, `lastname`, `email`, `role`, `password`) VALUES (NULL, NULL, 'admin@domain.ca', NULL, 'P@ssword1');

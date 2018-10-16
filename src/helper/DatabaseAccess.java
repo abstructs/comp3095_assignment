@@ -12,7 +12,7 @@ public class DatabaseAccess {
 	  private static String password = "P@ssword1";
 	  private static String database = "COMP3095";
 
-	  
+	  	
 	  public static Connection connectDataBase() throws Exception {
 	    try {
 	      // This will load the MySQL driver, each DB has its own driver
