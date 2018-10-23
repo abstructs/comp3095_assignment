@@ -1,0 +1,83 @@
+warning: LF will be replaced by CRLF in src/helper/ValidateRegistration.java.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in src/registrationServlets/Register.java.
+The file will have its original line endings in your working directory.
+[1mdiff --git a/.classpath b/.classpath[m
+[1mindex 4a3a6fe..3bcdefb 100644[m
+[1m--- a/.classpath[m
+[1m+++ b/.classpath[m
+[36m@@ -13,5 +13,7 @@[m
+ 	</classpathentry>[m
+ 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>[m
+ 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>[m
+[32m+[m	[32m<classpathentry kind="lib" path="C:/Users/veron/Documents/2018/java/javax.mail.jar"/>[m
+[32m+[m	[32m<classpathentry kind="lib" path="C:/Users/veron/Documents/2018/java/apache-tomcat-8.0.53/lib/javax.mail.jar"/>[m
+ 	<classpathentry kind="output" path="build/classes"/>[m
+ </classpath>[m
+[1mdiff --git a/build/classes/registrationServlets/Register.class b/build/classes/registrationServlets/Register.class[m
+[1mindex fd9619c..c30ed65 100644[m
+Binary files a/build/classes/registrationServlets/Register.class and b/build/classes/registrationServlets/Register.class differ
+[1mdiff --git a/src/helper/ConfirmationEmail.java b/src/helper/ConfirmationEmail.java[m
+[1mindex 4fe5527..d676577 100644[m
+[1m--- a/src/helper/ConfirmationEmail.java[m
+[1m+++ b/src/helper/ConfirmationEmail.java[m
+[36m@@ -26,11 +26,12 @@[m [mpublic class ConfirmationEmail {[m
+ 		props.put("mail.smtp.port", "587");[m
+ 		[m
+ 		Session session = Session.getInstance(props, [m
+[31m-				new javax.mail.Authenticator() {[m
+[31m-					protected PasswordAuthentication getPasswordAuthentication() {[m
+[31m-						return new PasswordAuthentication(username, password);[m
+[31m-					}[m
+[31m-				});[m
+[32m+[m			[32mnew javax.mail.Authenticator() {[m
+[32m+[m				[32mprotected PasswordAuthentication getPasswordAuthentication() {[m
+[32m+[m					[32mreturn new PasswordAuthentication(username, password);[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m		[32m);[m
+ 		[m
+ 		try {[m
+ 			Message message = new MimeMessage(session);[m
+[36m@@ -43,10 +44,5 @@[m [mpublic class ConfirmationEmail {[m
+ 		} catch(MessagingException e) {[m
+ 			e.printStackTrace();[m
+ 		}[m
+[31m-		[m
+[31m-		[m
+[31m-		[m
+[31m-		[m
+ 	}[m
+[31m-	[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/helper/ValidateRegistration.java b/src/helper/ValidateRegistration.java[m
+[1mindex a1a9dee..e47a829 100644[m
+[1m--- a/src/helper/ValidateRegistration.java[m
+[1m+++ b/src/helper/ValidateRegistration.java[m
+[36m@@ -2,6 +2,7 @@[m [mpackage helper;[m
+ [m
+ public class ValidateRegistration {[m
+ 	[m
+[32m+[m[41m	[m
+ 	public static boolean isEmpty(String field) {[m
+ 		return field == null || field.trim().equals("");[m
+ 	}[m
+[36m@@ -92,5 +93,4 @@[m [mpublic class ValidateRegistration {[m
+ 	public static void sendConfirmation(String email, String name) {[m
+ 		ConfirmationEmail.send(email, name);[m
+ 	}[m
+[31m-	[m
+ }[m
+[1mdiff --git a/src/registrationServlets/Register.java b/src/registrationServlets/Register.java[m
+[1mindex f4fb2c1..108ebbc 100644[m
+[1m--- a/src/registrationServlets/Register.java[m
+[1m+++ b/src/registrationServlets/Register.java[m
+[36m@@ -44,7 +44,6 @@[m [mpublic class Register extends HttpServlet {[m
+ 		[m
+ 		if (errors.equals("")) {[m
+ 			/* TODO: create user entry in database [m
+[31m-			 * TODO: ValidateRegistration.sendEmail(email)[m
+ 			 * TODO: css 'registered' class[m
+ 			 * TODO: change form to <a> and style as button[m
+ 			 */[m

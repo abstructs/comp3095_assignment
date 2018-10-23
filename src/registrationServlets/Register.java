@@ -1,5 +1,6 @@
 package registrationServlets;
 
+import helper.ConfirmationEmail;
 import helper.ValidateRegistration;
 
 import java.io.IOException;
@@ -43,10 +44,10 @@ public class Register extends HttpServlet {
 		
 		if (errors.equals("")) {
 			/* TODO: create user entry in database 
-			 * TODO: ValidateRegistration.sendEmail(email)
 			 * TODO: css 'registered' class
 			 * TODO: change form to <a> and style as button
 			 */
+			ConfirmationEmail.send(email, firstName);
 			
 				pw.print("<p class='registered'>");
 				pw.print("Your registration was successful.\n");

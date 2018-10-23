@@ -1,9 +1,7 @@
 package helper;
 
 public class ValidateRegistration {
-	public static void sendEmail(String email) {
-		//TODO: send confirmation email
-	}
+	
 	
 	public static boolean isEmpty(String field) {
 		return field == null || field.trim().equals("");
@@ -17,7 +15,7 @@ public class ValidateRegistration {
 	public static boolean validAddress(String address) {
 		//matches 	[1 to 5 numbers] [space]
 		//			[2 to 30 letters] [optional period]
-		return address.matches("^\\d{1,5}\\s[a-zA-Z]{2,30}\\s[a-zA-Z]{2,15}.?$");
+		return address.matches("^\\d{1,5}\\s[a-zA-Z]{2,30}(\\s[a-zA-Z]{2,15}.?)?$");
 	}
 	
 	public static boolean validEmail(String email) {
@@ -92,4 +90,7 @@ public class ValidateRegistration {
 		return errorMessage;
 	}
 	
+	public static void sendConfirmation(String email, String name) {
+		ConfirmationEmail.send(email, name);
+	}
 }
