@@ -15,6 +15,14 @@ public class SQLHelper {
 		this.connection = connection;
 	}
 	
+	public void finalize() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public SQLHelper() throws Exception {
 		try {
 			this.connection = DatabaseAccess.connectDataBase();
@@ -31,7 +39,7 @@ public class SQLHelper {
 					
 			ResultSet rs = stmt.executeQuery();
 			
-			return rs.getFetchSize() == 0;
+			return rs.next();
 		} catch(SQLException e) {
 			throw e;
 		}
@@ -44,6 +52,8 @@ public class SQLHelper {
 			stmt.setString(1, email);
 			
 			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
 			
 			String databasePassword = (String) rs.getObject("password");
 			

@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import helper.DatabaseAccess;
-import helper.HelperUtility;;
+import helper.HelperUtility;
+import helper.SQLHelper;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -27,64 +28,45 @@ public class Authenticate extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
-		SQLHelper sqlhelper;
-		try {
-			sqlhelper = new SQLHelper();
-			pw.println("connected!");
-		} catch(Exception e) {
-			pw.println(e);
-		}
-		
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		
-		String email = (String)request.getAttribute("email");
-		String password = (String)request.getAttribute("password");
+		String email = (String) request.getAttribute("email");
+		String password = (String) request.getAttribute("password");
 		
 		if(!HelperUtility.credentialsSet(email, password)) {
 			pw.println("credentials not set");
-//			response.sendRedirect("ErrorLogin.html");
+			// response.sendRedirect("ErrorLogin.html");
 			return;
 		}
 		
+		SQLHelper sqlHelper;
+		
 		try {
-			Connection db = helper.DatabaseAccess.connectDataBase();
-					
-			PreparedStatement stmt = db.prepareStatement("SELECT * FROM USERS WHERE email=?");
-
-			stmt.setString(1, email);
-					
-			ResultSet rs = stmt.executeQuery();
-			
-			if(!rs.next()) {
+			sqlHelper = new SQLHelper();
+			if(!sqlHelper.emailExists(email)) {
 				pw.println("couldnt find email");
+				// response.sendRedirect("ErrorLogin.html");
 				return;
 			}
 			
-			
-			String databasePassword = (String) rs.getObject("password");
-			
-			if(!password.equals(databasePassword)) {
+			if(!sqlHelper.validatePassword(email, password)) {
 				pw.println("Password is incorrect");
+				// response.sendRedirect("ErrorLogin.html");
 				return;
 			}
-			
-			//Create a session
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 			response.sendRedirect("Dashboard.html");
 			
-			rs.close();
-			db.close();
-		} catch (Exception e){
-			pw.println(e);
 			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		 
 	}
 
 }
