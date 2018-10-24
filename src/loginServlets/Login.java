@@ -25,13 +25,10 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//Create a session
-		HttpSession session = request.getSession();
-		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		
-		String userName = request.getParameter("username");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 
@@ -42,11 +39,6 @@ public class Login extends HttpServlet {
 //			- occurs when a user explicitly enters the URL of a restricted page without 
 //			first authenticating using the Login Servlet.
 		
-		//checking if there is input in the forms
-		if(helper.HelperUtility.formValidator(userName, password)) {
-			response.sendRedirect("ErrorLogin.html");
-			return;
-		}
 		
 		pw.println("<!DOCTYPE html>");
 		pw.println("<html>");
@@ -64,11 +56,16 @@ public class Login extends HttpServlet {
 		
 		
 		// if login button is clicked
-		if(request.getParameter("login") != null) {
+		
+		//checking if there is input in the forms
+		if(helper.HelperUtility.formValidator(email, password)) {
+			response.sendRedirect("ErrorLogin.html");
+		}
+		else if(request.getParameter("login") != null) {
+			request.setAttribute("email", email);
+			request.setAttribute("password", password);
 			RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
 			rd.forward(request,response);
-			return;
 		}
-		
 	}
 }
