@@ -1,6 +1,8 @@
 package loginServlets;
 
 import java.io.IOException;
+import helper.SQLHelper;
+
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.DatabaseAccess;
-import helper.HelperUtility;
+import helper.HelperUtility;;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -25,7 +27,14 @@ public class Authenticate extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		PrintWriter pw = response.getWriter();
+		SQLHelper sqlhelper;
+		try {
+			sqlhelper = new SQLHelper();
+			pw.println("connected!");
+		} catch(Exception e) {
+			pw.println(e);
+		}
 		
 	}
 
@@ -60,6 +69,8 @@ public class Authenticate extends HttpServlet {
 				pw.println("Password is incorrect");
 				return;
 			}
+			
+			// TODO: Set session here.
 			
 			response.sendRedirect("./Dashboard");
 			

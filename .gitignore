@@ -1,6 +1,8 @@
 .classpath
 .DS_STORE
 bin/
+build/
 .project
 .metadata
 .settings/
+

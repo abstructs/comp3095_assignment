@@ -3,11 +3,13 @@ package loginServlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -22,13 +24,17 @@ public class Login extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Create a session
+		HttpSession session = request.getSession();
+		
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		
+
 		
 //		Invalid username and/or password combination is provided
 //			- occurs when a user enters an invalid username/password combination.
@@ -36,12 +42,11 @@ public class Login extends HttpServlet {
 //			- occurs when a user explicitly enters the URL of a restricted page without 
 //			first authenticating using the Login Servlet.
 		
-		
-		// if register button is clicked
-		if(request.getParameter("register") != null) {
-			  response.sendRedirect("Register.html");
-		};
-
+		//checking if there is input in the forms
+		if(helper.HelperUtility.formValidator(userName, password)) {
+			response.sendRedirect("ErrorLogin.html");
+			return;
+		}
 		
 		pw.println("<!DOCTYPE html>");
 		pw.println("<html>");
@@ -56,6 +61,14 @@ public class Login extends HttpServlet {
 		pw.println("</h2>");
 		pw.println("</body>");
 		pw.println("</html>");
+		
+		
+		// if login button is clicked
+		if(request.getParameter("login") != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
+			rd.forward(request,response);
+			return;
+		}
+		
 	}
-
 }
