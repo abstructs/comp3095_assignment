@@ -1,5 +1,9 @@
 package helper;
 
+import helper.SQLHelper;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class ValidateRegistration {
 	
 	public static boolean isEmpty(String field) {
@@ -24,11 +28,6 @@ public class ValidateRegistration {
 		return email.matches("^[a-zA-Z_.]+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
 	}
 	
-	public static boolean emailExists(String email) {
-		//TODO: query database for email (case insensitive)
-		return false;
-	}
-	
 	public static boolean validPassword(String password) {
 		//TODO: change digit match to special character
 		//matches	[6 to 12 characters including a digit and uppercase letter]
@@ -43,9 +42,11 @@ public class ValidateRegistration {
 		return terms != null;
 	}
 	
-	public static String getErrors(String firstName, String lastName, String address, String email, String password, String passwordConfirm, String terms) {
+	public static String getErrors(Connection connection, String firstName, String lastName, String address, String email, String password, String passwordConfirm, String terms) {
 		String errorMessage = "";
 		
+		SQLHelper sqlHelper = new SQLHelper(connection);
+				
 		if (isEmpty(firstName)) {
 			errorMessage += "First name is required.<br />";
 		} else if (!isAlpha(firstName)) {
@@ -68,8 +69,15 @@ public class ValidateRegistration {
 			errorMessage += "Email is required.<br />";
 		} else if (!validEmail(email)) {
 			errorMessage += "You must enter a valid email.<br />";
-		} else if (emailExists(email)) {
-			errorMessage += "Email already exists.<br />";
+		} else {
+			try {
+				if(sqlHelper.emailExists(email)) {
+					errorMessage += "Email already exists.<br />";
+				}
+			} catch(SQLException e) {
+				System.out.println("SQL Exception occured");
+			}
+			
 		}
 		
 		if (isEmpty(password)) {

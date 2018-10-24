@@ -1,6 +1,7 @@
 package registrationServlets;
 
 import helper.ConfirmationEmail;
+import helper.SQLHelper;
 import helper.ValidateRegistration;
 
 import java.io.IOException;
@@ -40,7 +41,15 @@ public class Register extends HttpServlet {
 		String passwordConfirm = request.getParameter("passwordConfirm");
 		String terms = request.getParameter("terms");
 		
-		String errors = ValidateRegistration.getErrors(firstName, lastName, address, email, password, passwordConfirm, terms);
+		String errors;
+		
+		try {
+			SQLHelper sqlhelper = new SQLHelper();
+			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);
+		} catch(Exception e) {
+			// handle connect to database error here
+			return;
+		}
 		
 		if (errors.equals("")) {
 			/* TODO: create user entry in database 
