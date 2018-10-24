@@ -2,6 +2,8 @@ package loginServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +38,11 @@ public class Authenticate extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		
 		try {
-			helper.DatabaseAccess.connectDataBase();
+			Connection db = helper.DatabaseAccess.connectDataBase();
+//			ResultSet rs = db.prepareStatement("SELECT * FROM USERS").executeQuery();
+//			rs.getFetchSize();
+//			rs.close();
+			
 			pw.println("connected!");
 		} catch (Exception e){
 			pw.println(e);

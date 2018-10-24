@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 public class DatabaseAccess {
 	  private static Connection connect = null;
 	  
-	  private static String username = "admin@domain.ca";;
+	  private static String username = "admin";;
 	  private static String password = "P@ssword1";
 	  private static String database = "COMP3095";
 
@@ -20,7 +20,7 @@ public class DatabaseAccess {
 	      // Setup the connection with the DB
 	      connect = DriverManager
 		          .getConnection("jdbc:mysql://localhost:3306/"+database+"?"
-		              + "user="+username+"&password="+password);
+		              + "user="+username+"&password="+password + "&serverTimezone=UTC");
 	      return connect;
 	    } catch (Exception e) {
 	      throw e;
