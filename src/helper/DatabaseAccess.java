@@ -24,6 +24,6 @@ public class DatabaseAccess {
 	      return connect;
 	    } catch (Exception e) {
 	      throw e;
-	    } 
+	    }
 	  }
 }

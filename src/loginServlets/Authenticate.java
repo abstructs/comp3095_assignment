@@ -2,6 +2,7 @@ package loginServlets;
 
 import java.io.IOException;
 
+
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.DatabaseAccess;
-import helper.HelperUtility;
+import helper.HelperUtility;;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -60,6 +61,8 @@ public class Authenticate extends HttpServlet {
 				pw.println("Password is incorrect");
 				return;
 			}
+			
+			// TODO: Set session here.
 			
 			response.sendRedirect("./Dashboard");
 			
