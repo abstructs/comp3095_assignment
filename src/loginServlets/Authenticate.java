@@ -1,8 +1,10 @@
 package loginServlets;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
@@ -12,62 +14,60 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.DatabaseAccess;
+import helper.HelperUtility;
 
-/**
- * Servlet implementation class Authenticate
- */
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Authenticate() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		PrintWriter pw = response.getWriter();
-		
-		try {
-			Connection db = helper.DatabaseAccess.connectDataBase();
-//			ResultSet rs = db.prepareStatement("SELECT * FROM USERS").executeQuery();
-//			rs.getFetchSize();
-//			rs.close();
-			
-			pw.println("connected!");
-		} catch (Exception e){
-			pw.println(e);
-		}
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		String username = request.getParameter("username");
+		PrintWriter pw = response.getWriter();
+		
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		Boolean failed = false;
+		if(!HelperUtility.credentialsSet(email, password)) {
+			response.sendRedirect("./Login");
+			return;
+		}
 		
-		
-		if(failed) {
-			// redirect to login servlet with error
-			response.sendRedirect("");
-		} else {
-			// redirect to dashboard
-			response.sendRedirect("");
+		try {
+			Connection db = helper.DatabaseAccess.connectDataBase();
+					
+			PreparedStatement stmt = db.prepareStatement("SELECT email, password FROM USERS WHERE email=?");
+			
+			stmt.setString(1, email);
+					
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.getFetchSize() == 0) {
+				pw.println("Couldn't find user with that email");
+				return;
+			}
+			
+			String databasePassword = (String) rs.getObject("password");
+			
+			if(!password.equals(databasePassword)) {
+				pw.println("Password is incorrect");
+				return;
+			}
+			
+			response.sendRedirect("./Dashboard");
+			
+			rs.close();
+			db.close();
+		} catch (Exception e){
+			pw.println(e);
+			
 		}
 		 
 	}
