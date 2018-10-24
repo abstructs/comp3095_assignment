@@ -2,7 +2,6 @@ package helper;
 
 public class ValidateRegistration {
 	
-	
 	public static boolean isEmpty(String field) {
 		return field == null || field.trim().equals("");
 	}
