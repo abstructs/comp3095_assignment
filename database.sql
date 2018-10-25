@@ -19,6 +19,7 @@ CREATE TABLE USERS
 	id int(11) AUTO_INCREMENT PRIMARY KEY, 
 	firstname varchar(255),
 	lastname varchar(255),
+	address varchar(255),
 	email varchar(255), 
 	role varchar(20),
 	created timestamp default current_timestamp,

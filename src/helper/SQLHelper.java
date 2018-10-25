@@ -52,4 +52,28 @@ public class SQLHelper {
 			return false;
 		}
 	}
+		
+	public boolean registerUser(String firstName, String lastName, String address, String email, String password) {
+		 
+		try {
+			PreparedStatement ps;
+			String query = "insert into users(firstName,lastName,address,email,password,role) values (?,?,?,?,?,?)";
+			ps = connection.prepareStatement(query);
+			
+			ps.setString(1, firstName);
+			ps.setString(2, lastName);
+			ps.setString(3, address);
+			ps.setString(4, email);
+			ps.setString(5, password);
+			ps.setString(6, "user");
+			
+			 
+			return ps.executeUpdate() == 1;
+		 
+		
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
