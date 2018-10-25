@@ -25,13 +25,12 @@ public class ValidateRegistration {
 		//matches 	[at least 1 letter, number, underscore, or period]
 		//			[literal @] [at least 1 letter] 
 		//			[literal period] [2 to 3 letters]
-		return email.matches("^[a-zA-Z_.]+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
+		return email.matches("^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
 	}
 	
 	public static boolean validPassword(String password) {
-		//TODO: change digit match to special character
-		//matches	[6 to 12 characters including a digit and uppercase letter]
-		return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$");
+		//matches	[6 to 12 characters including a special character and uppercase letter]
+		return password.matches("^(?=.*[!@#\\$%\\^&\\?])(?=.*[A-Z]).{6,12}$");
 	}
 	
 	public static boolean passwordsMatch(String password, String passwordConfirm) {
@@ -77,16 +76,15 @@ public class ValidateRegistration {
 			} catch(SQLException e) {
 				System.out.println("SQL Exception occured");
 			}
-			
 		}
 		
 		if (isEmpty(password)) {
 			errorMessage += "Password is required.<br />";
+		} else if (isEmpty(passwordConfirm)) {
+			errorMessage += "Please confirm your password.<br />";
 		} else if (!validPassword(password)) {
-			errorMessage += "Password must be between 6 - 12 characters and include a (number for now) and an uppercase letter.<br />";
-		}
-
-		if (!passwordsMatch(password, passwordConfirm)) {
+			errorMessage += "Password must be between 6 - 12 characters and include a special character and an uppercase letter.<br />";
+		} else if (!passwordsMatch(password, passwordConfirm)) {
 			errorMessage += "Passwords do not match.<br />";
 		}
 		
@@ -97,7 +95,7 @@ public class ValidateRegistration {
 		return errorMessage;
 	}
 	
-	public static void sendConfirmation(String email, String name) {
-		ConfirmationEmail.send(email, name);
+	public static void sendConfirmation(String email, String firstName, String lastName) {
+		ConfirmationEmail.send(email, firstName, lastName);
 	}
 }

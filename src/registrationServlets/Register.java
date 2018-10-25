@@ -1,8 +1,6 @@
 package registrationServlets;
 
-import helper.ConfirmationEmail;
-import helper.SQLHelper;
-import helper.ValidateRegistration;
+import helper.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,12 +27,7 @@ public class Register extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
-		pw.print("<!DOCTYPE html>");
-		pw.print("<html>");
-		pw.print("<head>");
-		pw.print("<meta charset='UTF-8'>");
-		pw.print("<title>Project Title - Registration</title>");
-		pw.print("</head>");
+		pw.print(HelperUtility.printHead("Project Title - Registration"));
 		pw.print("<body>");
 
 		String firstName = request.getParameter("firstName");
@@ -48,7 +41,6 @@ public class Register extends HttpServlet {
 		String errors;
 		boolean registered = false;
 
-		
 		try {
 			SQLHelper sqlhelper = new SQLHelper();
 			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);			
@@ -60,20 +52,17 @@ public class Register extends HttpServlet {
 		}
 		
 		if (registered) {
-			ConfirmationEmail.send(email, firstName);
-			pw.print("<p class='registered'>");
+			ConfirmationEmail.send(email, firstName, lastName);
+			pw.print("<h1>Registration Complete</h1>");
+			pw.print("<div class='container'>");
 			pw.print("Your registration was successful.\n");
-			pw.print("An email has been sent to " + email + ". Please check your email to verify and confirm.");
-			pw.print("<form action='Dashboard'>");
-			pw.print("	<input type='submit' value='Continue' />");
-			pw.print("</form>");
+			pw.print("An email has been sent to <i>" + email + "</i>. Please check your email to verify and confirm.");
+			pw.print("<br /><a href='Login' class='btn btn-primary'>Continue</a>");
+			pw.print("</div>");
 		} else {
-			
 			pw.print("<h1>Registration</h1>");
 			
-			pw.print("<p class='error'>");
-			pw.print(errors);
-			pw.print("</p>");
+			pw.print("<div class='alert alert-warning'>" + errors + "</div>");
 			
 			pw.print("	<form method='POST' action='Register'>\n" + 
 					"		<label for='firstName'>First name *</label>\n" + 
@@ -95,7 +84,7 @@ public class Register extends HttpServlet {
 					"		<input type='password' name='passwordConfirm' />\n" + 
 					"		<br />\n" + 
 					"		<input type='checkbox' name='terms' />\n" + 
-					"		<label for='terms'>I agree to the terms of service.</label>\n" + 
+					"		<label for='terms'>I agree to the <a href='terms.html'>terms of service</a>.</label>\n" + 
 					"		<br />\n" + 
 					"		<input type='submit' value='Register' />\n" + 
 					"		<br />\n" + 

@@ -25,4 +25,13 @@ public class HelperUtility {
 		}
 		
 	}
+	
+	public static String printHead(String title) {
+		return("<!DOCTYPE html>"
+				+ "<html>"
+				+ "<head>"
+				+ "<meta charset='UTF-8'>"
+				+ "<title>" + title + "</title>"
+				+ "</head>");
+	}
 }
