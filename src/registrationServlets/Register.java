@@ -22,6 +22,10 @@ public class Register extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
@@ -42,43 +46,29 @@ public class Register extends HttpServlet {
 		String terms = request.getParameter("terms");
 		
 		String errors;
+		boolean registered = false;
+
 		
 		try {
 			SQLHelper sqlhelper = new SQLHelper();
-			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);
+			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);			
+			if (errors.equals("")) {
+				registered = sqlhelper.registerUser(firstName, lastName, address, email, password);
+			}
 		} catch(Exception e) {
-			// handle connect to database error here
-			return;
+			errors = "Something went wrong. Please try again.";
 		}
 		
-		if (errors.equals("")) {
-			/* TODO: create user entry in database 
-			 * TODO: css 'registered' class
-			 * TODO: change form to <a> and style as button
-			 */
+		if (registered) {
 			ConfirmationEmail.send(email, firstName);
-			
-				pw.print("<p class='registered'>");
-				pw.print("Your registration was successful.\n");
-				pw.print("An email has been sent to " + email + ". Please check your email to verify and confirm.");
-				pw.print("<form action='Dashboard'>");
-				pw.print("	<input type='submit' value='Continue' />");
-				pw.print("</form>");
-			
-			/*
-				pw.println("<script type='text/javascript'>");  
-				pw.println("alert('"
-						+ "Your registration was successful.\n"
-						+ "An email has been sent to " + email + ".\n"
-						+ "Please check your email to verify and confirm."
-						+ "');");  
-				pw.println("</script>");
-				response.sendRedirect("Dashboard");
-			*/
+			pw.print("<p class='registered'>");
+			pw.print("Your registration was successful.\n");
+			pw.print("An email has been sent to " + email + ". Please check your email to verify and confirm.");
+			pw.print("<form action='Dashboard'>");
+			pw.print("	<input type='submit' value='Continue' />");
+			pw.print("</form>");
 		} else {
-			//using response.sendRedirect("InvalidRegistration") would require using getErrors() again on the InvalidRegistration servlet
-			//should the form be autofilling password & terms agreement?
-			//TODO: css 'error' class
+			
 			pw.print("<h1>Registration</h1>");
 			
 			pw.print("<p class='error'>");
@@ -111,12 +101,8 @@ public class Register extends HttpServlet {
 					"		<br />\n" + 
 					"		<a href='Login'>Cancel</a>\n" + 
 					"	</form>");
-			pw.print("</body>");
-			pw.print("</html>");
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		pw.print("</body>");
+		pw.print("</html>");
 	}
 }
