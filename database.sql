@@ -23,7 +23,7 @@ CREATE TABLE USERS
 	email varchar(255), 
 	role varchar(20),
 	created timestamp default current_timestamp,
-	password varchar(20)	
+	password char(64)	
 );
 
 INSERT INTO `USERS` (`firstname`, `lastname`, `email`, `role`, `password`) VALUES (NULL, NULL, 'admin@domain.ca', NULL, 'P@ssword1');

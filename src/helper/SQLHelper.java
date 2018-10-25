@@ -74,7 +74,7 @@ public class SQLHelper {
 			ps.setString(2, lastName);
 			ps.setString(3, address);
 			ps.setString(4, email);
-			ps.setString(5, password);
+			ps.setString(5, HelperUtility.sha256(password, "salt"));
 			ps.setString(6, "user");
 			
 			 
