@@ -27,7 +27,7 @@ public class Register extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
-		pw.print(HelperUtility.printHead("Project Title - Registration"));
+		pw.print(HelperUtility.printHead("Project Title - Register"));
 		pw.print("<body>");
 
 		String firstName = request.getParameter("firstName");
@@ -54,42 +54,59 @@ public class Register extends HttpServlet {
 		if (registered) {
 			ConfirmationEmail.send(email, firstName, lastName);
 			pw.print("<h1>Registration Complete</h1>");
-			pw.print("<div class='container'>");
-			pw.print("Your registration was successful.\n");
-			pw.print("An email has been sent to <i>" + email + "</i>. Please check your email to verify and confirm.");
-			pw.print("<br /><a href='Login' class='btn btn-primary'>Continue</a>");
+			pw.print("<div class='container form'>");
+			pw.print("Your registration was successful.<br />");
+			pw.print("An email has been sent to <i>" + email + "</i>.<br /> Please check your email to verify and confirm.");
+			pw.print("<br /><a href='Login.html' class='btn btn-primary right'>Continue</a>");
 			pw.print("</div>");
 		} else {
-			pw.print("<h1>Registration</h1>");
+			pw.print("<h1>Register</h1>");
 			
-			pw.print("<div class='alert alert-warning'>" + errors + "</div>");
-			
-			pw.print("	<form method='POST' action='Register'>\n" + 
-					"		<label for='firstName'>First name *</label>\n" + 
-					"		<input type='text' name='firstName' value='" + firstName + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='lastName'>Last name *</label>\n" + 
-					"		<input type='text' name='lastName' value='" + lastName + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='address'>Address *</label>\n" + 
-					"		<input type='text' name='address' value='" + address + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='email'>Email *</label>\n" + 
-					"		<input type='text' name='email' value='" + email + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='password'>Password *</label>\n" + 
-					"		<input type='password' name='password' />\n" + 
-					"		<br />\n" + 
-					"		<label for='passwordConfirm'>Confirm password *</label>\n" + 
-					"		<input type='password' name='passwordConfirm' />\n" + 
-					"		<br />\n" + 
-					"		<input type='checkbox' name='terms' />\n" + 
-					"		<label for='terms'>I agree to the <a href='terms.html'>terms of service</a>.</label>\n" + 
-					"		<br />\n" + 
-					"		<input type='submit' value='Register' />\n" + 
-					"		<br />\n" + 
-					"		<a href='Login'>Cancel</a>\n" + 
-					"	</form>");
+			pw.print("	<div class='container form'>" + 
+					"	<div class='alert alert-warning'>" + errors + "</div>" +
+					"	<form method='POST' action='Register'>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='text' class='form-control' placeholder='First Name*' name='firstName' value='" + firstName + "'/>" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='text' class='form-control' placeholder='Last Name*' name='lastName' value='" + lastName + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='text' class='form-control' placeholder='Address*' name='address' value='" + address + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='text' class='form-control' placeholder='Email*' name='email' value='" + email + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='password' class='form-control' placeholder='Password*' name='password' />" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='password' class='form-control' placeholder='Confirm Password*' name='passwordConfirm' />" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='checkbox' name='terms' />" + 
+					"				<label for='terms'>I agree to the <a href='Terms.html'>terms of service</a>.*</label>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='submit' value='Register' class='btn btn-success' />" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<a class='btn btn-danger right' href='Login.html' role='button'>Cancel</a>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"	</form>	" + 
+					"	</div>");
 		}
 		pw.print("</body>");
 		pw.print("</html>");

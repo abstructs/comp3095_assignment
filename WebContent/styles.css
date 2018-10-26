@@ -1,0 +1,36 @@
+body {
+	background-color: #cecece;
+}
+
+h1 {
+	padding: 0px 25px 10px;
+}
+
+.container {
+	border-radius: 25px 0px;
+	background-color: #ececec;
+}
+
+.form {
+	margin: auto;
+	padding: 20px 25px;
+	width: 450px;
+}
+
+.terms {
+	margin: 0px auto 20px;
+	padding: 20px 30px;
+	width: 75%;
+}
+
+.row {
+	padding: 7px 0px;
+}
+
+.btn-terms {
+	margin: 7px 0px;
+}
+
+.right {
+	float: right;	
+}
