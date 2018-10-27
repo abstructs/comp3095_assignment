@@ -42,8 +42,7 @@ public class HelperUtility {
 	        BufferedReader rd = new BufferedReader(new InputStreamReader(res, Charset.forName("UTF-8")));
 	        StringBuilder sb = new StringBuilder();
 	        int cp;
-	        
-	        
+	       
 	        while ((cp = rd.read()) != -1) {
 	            sb.append((char) cp);
 	        }
@@ -52,10 +51,6 @@ public class HelperUtility {
 
 	        JSONObject json = new JSONObject(jsonText);
 	        
-	        StringWriter out = new StringWriter();
-	        json.write(out);
-	        String jsontext = out.toString();
-	        System.out.println(jsontext);
 	        return json.getBoolean("success");
 	    } catch (Exception e) {
 	        return false;

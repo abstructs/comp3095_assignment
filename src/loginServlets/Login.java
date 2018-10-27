@@ -39,38 +39,21 @@ public class Login extends HttpServlet {
 //		A User requests a page that requires a user to be successfully logged in first
 //			- occurs when a user explicitly enters the URL of a restricted page without 
 //			first authenticating using the Login Servlet.
-		
-		
-		
-		
-		
-		// if login button is clicked
-		
-		//checking if there is input in the forms
-		if(helper.HelperUtility.isCaptchaValid("6Ld-IHcUAAAAAAgRR6m36OJE3VgSCgeIVi_CvMfG", request.getParameter("g-recaptcha-response"))){
-		    //valid
-			pw.println("<!DOCTYPE html>");
-			pw.println("<html>");
-			pw.println("<head>");
-			pw.println("<title>");
-			pw.println("Lab 2");
-			pw.println("</title>");
-			pw.println("</head>");
-			pw.println("<body>");
-			pw.println("<h2>");
-			pw.println("");
-			pw.println("</h2>");
-			pw.println("</body>");
-			pw.println("</html>");
-		}
-//		if(helper.HelperUtility.formValidator(email, password)) {
-//			response.sendRedirect("ErrorLogin.html");
-//		}
-//		else if(request.getParameter("login") != null) {
-//			request.setAttribute("email", email);
-//			request.setAttribute("password", password);
-//			RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
-//			rd.forward(request,response);
-//		}
+
+			//checking if there is input in the forms
+			if(helper.HelperUtility.formValidator(email, password)) {
+				response.sendRedirect("ErrorLogin.html");
+			}
+			//make sure the Capthca is valid
+			else if(!helper.HelperUtility.isCaptchaValid("6Ld-IHcUAAAAAAgRR6m36OJE3VgSCgeIVi_CvMfG", request.getParameter("g-recaptcha-response"))) {
+				response.sendRedirect("ErrorLogin.html");
+			}
+			//validate the input
+			else if(request.getParameter("login") != null) {
+				request.setAttribute("email", email);
+				request.setAttribute("password", password);
+				RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
+				rd.forward(request,response);
+			}
 	}
 }
