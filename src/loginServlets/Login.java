@@ -1,6 +1,7 @@
 package loginServlets;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
@@ -40,32 +41,36 @@ public class Login extends HttpServlet {
 //			first authenticating using the Login Servlet.
 		
 		
-		pw.println("<!DOCTYPE html>");
-		pw.println("<html>");
-		pw.println("<head>");
-		pw.println("<title>");
-		pw.println("Lab 2");
-		pw.println("</title>");
-		pw.println("</head>");
-		pw.println("<body>");
-		pw.println("<h2>");
-		pw.println("");
-		pw.println("</h2>");
-		pw.println("</body>");
-		pw.println("</html>");
+		
 		
 		
 		// if login button is clicked
 		
 		//checking if there is input in the forms
-		if(helper.HelperUtility.formValidator(email, password)) {
-			response.sendRedirect("ErrorLogin.html");
+		if(helper.HelperUtility.isCaptchaValid("6Ld-IHcUAAAAAAgRR6m36OJE3VgSCgeIVi_CvMfG", request.getParameter("g-recaptcha-response"))){
+		    //valid
+			pw.println("<!DOCTYPE html>");
+			pw.println("<html>");
+			pw.println("<head>");
+			pw.println("<title>");
+			pw.println("Lab 2");
+			pw.println("</title>");
+			pw.println("</head>");
+			pw.println("<body>");
+			pw.println("<h2>");
+			pw.println("");
+			pw.println("</h2>");
+			pw.println("</body>");
+			pw.println("</html>");
 		}
-		else if(request.getParameter("login") != null) {
-			request.setAttribute("email", email);
-			request.setAttribute("password", password);
-			RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
-			rd.forward(request,response);
-		}
+//		if(helper.HelperUtility.formValidator(email, password)) {
+//			response.sendRedirect("ErrorLogin.html");
+//		}
+//		else if(request.getParameter("login") != null) {
+//			request.setAttribute("email", email);
+//			request.setAttribute("password", password);
+//			RequestDispatcher rd = request.getRequestDispatcher("Authenticate");
+//			rd.forward(request,response);
+//		}
 	}
 }

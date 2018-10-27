@@ -4,6 +4,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.net.URL;
+import java.nio.charset.Charset;
+import org.json.*;
 
 public class HelperUtility {
 	public static Boolean credentialsSet(String email, String password) {
@@ -24,5 +31,34 @@ public class HelperUtility {
 			return null;
 		}
 		
+	}
+	public static boolean isCaptchaValid(String secretKey, String response) {
+	    try {
+	        String url = "https://www.google.com/recaptcha/api/siteverify?"
+	                + "secret=" + secretKey
+	                + "&response=" + response;
+	        
+	        InputStream res = new URL(url).openStream();
+	        BufferedReader rd = new BufferedReader(new InputStreamReader(res, Charset.forName("UTF-8")));
+	        StringBuilder sb = new StringBuilder();
+	        int cp;
+	        
+	        
+	        while ((cp = rd.read()) != -1) {
+	            sb.append((char) cp);
+	        }
+	        String jsonText = sb.toString();
+	        res.close();
+
+	        JSONObject json = new JSONObject(jsonText);
+	        
+	        StringWriter out = new StringWriter();
+	        json.write(out);
+	        String jsontext = out.toString();
+	        System.out.println(jsontext);
+	        return json.getBoolean("success");
+	    } catch (Exception e) {
+	        return false;
+	    }
 	}
 }
