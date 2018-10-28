@@ -60,13 +60,13 @@ public class SQLHelper {
 			String databasePasswordHash = (String) rs.getObject("password");
 			
 			return databasePasswordHash.equals(passwordHash);
-		} catch(Exception e) {
+		} catch(Exception e) {	
+			e.printStackTrace();
 			return false;
 		}
 	}
 		
 	public boolean registerUser(String firstName, String lastName, String address, String email, String password) {
-		 
 		try {
 			PreparedStatement ps;
 			String query = "insert into users(firstName,lastName,address,email,password,role) values (?,?,?,?,?,?)";

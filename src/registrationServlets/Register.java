@@ -1,8 +1,6 @@
 package registrationServlets;
 
-import helper.ConfirmationEmail;
-import helper.SQLHelper;
-import helper.ValidateRegistration;
+import helper.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,15 +20,14 @@ public class Register extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
-		pw.print("<!DOCTYPE html>");
-		pw.print("<html>");
-		pw.print("<head>");
-		pw.print("<meta charset='UTF-8'>");
-		pw.print("<title>Project Title - Registration</title>");
-		pw.print("</head>");
+		pw.print(HelperUtility.printHead("Project Title - Register"));
 		pw.print("<body>");
 
 		String firstName = request.getParameter("firstName");
@@ -42,81 +39,76 @@ public class Register extends HttpServlet {
 		String terms = request.getParameter("terms");
 		
 		String errors;
-		
+		boolean registered = false;
+
 		try {
 			SQLHelper sqlhelper = new SQLHelper();
-			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);
+			errors = ValidateRegistration.getErrors(sqlhelper.getConnection(), firstName, lastName, address, email, password, passwordConfirm, terms);			
+			if (errors.equals("")) {
+				registered = sqlhelper.registerUser(firstName, lastName, address, email, password);
+			}
 		} catch(Exception e) {
-			// handle connect to database error here
-			return;
+			errors = "Something went wrong. Please try again.";
 		}
 		
-		if (errors.equals("")) {
-			/* TODO: create user entry in database 
-			 * TODO: css 'registered' class
-			 * TODO: change form to <a> and style as button
-			 */
-			ConfirmationEmail.send(email, firstName);
-			
-				pw.print("<p class='registered'>");
-				pw.print("Your registration was successful.\n");
-				pw.print("An email has been sent to " + email + ". Please check your email to verify and confirm.");
-				pw.print("<form action='Dashboard'>");
-				pw.print("	<input type='submit' value='Continue' />");
-				pw.print("</form>");
-			
-			/*
-				pw.println("<script type='text/javascript'>");  
-				pw.println("alert('"
-						+ "Your registration was successful.\n"
-						+ "An email has been sent to " + email + ".\n"
-						+ "Please check your email to verify and confirm."
-						+ "');");  
-				pw.println("</script>");
-				response.sendRedirect("Dashboard");
-			*/
+		if (registered) {
+			ConfirmationEmail.send(email, firstName, lastName);
+			pw.print("<h1>Registration Complete</h1>");
+			pw.print("<div class='container form'>");
+			pw.print("Your registration was successful.<br />");
+			pw.print("An email has been sent to <i>" + email + "</i>.<br /> Please check your email to verify and confirm.");
+			pw.print("<br /><a href='Login.html' class='btn btn-primary right'>Continue</a>");
+			pw.print("</div>");
 		} else {
-			//using response.sendRedirect("InvalidRegistration") would require using getErrors() again on the InvalidRegistration servlet
-			//should the form be autofilling password & terms agreement?
-			//TODO: css 'error' class
-			pw.print("<h1>Registration</h1>");
+			pw.print("<h1>Register</h1>");
 			
-			pw.print("<p class='error'>");
-			pw.print(errors);
-			pw.print("</p>");
-			
-			pw.print("	<form method='POST' action='Register'>\n" + 
-					"		<label for='firstName'>First name *</label>\n" + 
-					"		<input type='text' name='firstName' value='" + firstName + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='lastName'>Last name *</label>\n" + 
-					"		<input type='text' name='lastName' value='" + lastName + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='address'>Address *</label>\n" + 
-					"		<input type='text' name='address' value='" + address + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='email'>Email *</label>\n" + 
-					"		<input type='text' name='email' value='" + email + "' />\n" + 
-					"		<br />\n" + 
-					"		<label for='password'>Password *</label>\n" + 
-					"		<input type='password' name='password' />\n" + 
-					"		<br />\n" + 
-					"		<label for='passwordConfirm'>Confirm password *</label>\n" + 
-					"		<input type='password' name='passwordConfirm' />\n" + 
-					"		<br />\n" + 
-					"		<input type='checkbox' name='terms' />\n" + 
-					"		<label for='terms'>I agree to the terms of service.</label>\n" + 
-					"		<br />\n" + 
-					"		<input type='submit' value='Register' />\n" + 
-					"		<br />\n" + 
-					"		<a href='Login'>Cancel</a>\n" + 
-					"	</form>");
-			pw.print("</body>");
-			pw.print("</html>");
+			pw.print("	<div class='container form'>" + 
+					"	<div class='alert alert-warning'>" + errors + "</div>" +
+					"	<form method='POST' action='Register'>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='text' class='form-control' placeholder='First Name*' name='firstName' value='" + firstName + "'/>" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='text' class='form-control' placeholder='Last Name*' name='lastName' value='" + lastName + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='text' class='form-control' placeholder='Address*' name='address' value='" + address + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='text' class='form-control' placeholder='Email*' name='email' value='" + email + "'/>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='password' class='form-control' placeholder='Password*' name='password' />" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='password' class='form-control' placeholder='Confirm Password*' name='passwordConfirm' />" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-12'>" + 
+					"				<input type='checkbox' name='terms' />" + 
+					"				<label for='terms'>I agree to the <a href='Terms.html'>terms of service</a>.*</label>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"		<div class='row'>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<input type='submit' value='Register' class='btn btn-success' />" + 
+					"			</div>" + 
+					"			<div class='col-xs-6'>" + 
+					"				<a class='btn btn-danger right' href='Login.html' role='button'>Cancel</a>" + 
+					"			</div>" + 
+					"		</div>" + 
+					"	</form>	" + 
+					"	</div>");
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		pw.print("</body>");
+		pw.print("</html>");
 	}
 }

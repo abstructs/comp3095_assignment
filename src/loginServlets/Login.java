@@ -30,15 +30,12 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
 
-		
 //		Invalid username and/or password combination is provided
 //			- occurs when a user enters an invalid username/password combination.
 //		A User requests a page that requires a user to be successfully logged in first
 //			- occurs when a user explicitly enters the URL of a restricted page without 
 //			first authenticating using the Login Servlet.
-		
 		
 		pw.println("<!DOCTYPE html>");
 		pw.println("<html>");
