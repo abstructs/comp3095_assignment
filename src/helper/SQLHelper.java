@@ -64,7 +64,7 @@ public class SQLHelper {
 	}
 		
 	public boolean registerUser(String firstName, String lastName, String address, String email, String password) throws SQLException {
-		 
+
 		try {
 			PreparedStatement ps;
 			String query = "insert into users(firstName,lastName,address,email,password,role) values (?,?,?,?,?,?)";

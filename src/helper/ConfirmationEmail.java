@@ -2,6 +2,7 @@ package helper;
 
 import java.util.Properties;
 
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -9,6 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
+import javax.servlet.http.HttpSession;
 
 public class ConfirmationEmail {
 	public static void send(String email, String firstName, String lastName) {
