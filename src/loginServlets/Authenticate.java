@@ -47,7 +47,7 @@ public class Authenticate extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
-			response.sendRedirect("Dashboard.html");
+			response.sendRedirect("Dashboard");
 			
 			
 		} catch(Exception e) {
