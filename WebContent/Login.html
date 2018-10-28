@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
     <form action="Login" method="POST">
 
     	<h1>Login</h1><br>
-    	
     	Username
     	<br>
     	<input type="text" name="email" />
@@ -16,6 +16,7 @@
     	<br>
     	<input type="password" name="password" />
         <br>
+        <div class="g-recaptcha" data-sitekey="6Ld-IHcUAAAAAEfdIOmfuab9CJ0aEfAovp8CFP3G"></div>
 		<br>
 
         <input type="submit" value="Login" name="login"/>
