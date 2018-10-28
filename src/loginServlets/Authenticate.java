@@ -27,20 +27,12 @@ public class Authenticate extends HttpServlet {
     public Authenticate() {
         super();
     }
-
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		
-//	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
-		
 		String email = (String) request.getAttribute("email");
 		String password = (String) request.getAttribute("password");
 		
 		if(!HelperUtility.credentialsSet(email, password)) {
-			pw.println("credentials not set");
-			// response.sendRedirect("ErrorLogin.html");
+			 response.sendRedirect("ErrorLogin.html");
 			return;
 		}
 		
@@ -48,20 +40,14 @@ public class Authenticate extends HttpServlet {
 		
 		try {
 			sqlHelper = new SQLHelper();
-			if(!sqlHelper.emailExists(email)) {
-				pw.println("couldnt find email");
-				// response.sendRedirect("ErrorLogin.html");
+			if(!sqlHelper.emailExists(email) || !sqlHelper.validatePassword(email, password)) {
+				response.sendRedirect("ErrorLogin.html");
 				return;
 			}
-			
-			if(!sqlHelper.validatePassword(email, password)) {
-				pw.println("Password is incorrect");
-				// response.sendRedirect("ErrorLogin.html");
-				return;
-			}
+
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
-			response.sendRedirect("Dashboard.html");
+			response.sendRedirect("Dashboard");
 			
 			
 		} catch(Exception e) {

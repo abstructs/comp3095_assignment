@@ -19,10 +19,6 @@ public class Register extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
@@ -48,6 +44,7 @@ public class Register extends HttpServlet {
 				registered = sqlhelper.registerUser(firstName, lastName, address, email, password);
 			}
 		} catch(Exception e) {
+			e.printStackTrace();
 			errors = "Something went wrong. Please try again.";
 		}
 		

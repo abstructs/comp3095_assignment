@@ -2,6 +2,7 @@ package helper;
 
 import java.sql.*;
 import helper.DatabaseAccess;
+import helper.HelperUtility;
 
 public class SQLHelper {
 	
@@ -55,10 +56,12 @@ public class SQLHelper {
 			
 			rs.next();
 			
-			String databasePassword = (String) rs.getObject("password");
+			String passwordHash = HelperUtility.sha256(password, "salt");
+			String databasePasswordHash = (String) rs.getObject("password");
 			
-			return password.equals(databasePassword);
-		} catch(Exception e) {
+			return databasePasswordHash.equals(passwordHash);
+		} catch(Exception e) {	
+			e.printStackTrace();
 			return false;
 		}
 	}

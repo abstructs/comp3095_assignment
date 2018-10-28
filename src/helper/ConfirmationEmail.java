@@ -22,7 +22,7 @@ public class ConfirmationEmail {
 		
 		final String msgBody = "<h3>Hi, " + name + "!</h3>"
 				+ "You have successfully created an account at [Project Name] with email <i>" + email + "</i>.<br />" 
-				+ "Please click <a href='http://localhost:8080/comp3095_assignment/Login'>here</a> to log in to your dashboard.";
+				+ "Please click <a href='http://localhost:8080/comp3095_assignment/Login.html'>here</a> to log in to your dashboard.";
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
