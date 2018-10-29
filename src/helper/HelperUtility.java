@@ -1,3 +1,14 @@
+//*********************************************************************************
+//* Project: Lentil
+//* Assignment: Assignment # 1
+//* Author(s): Andrew Wilson, Justin Rolnick, Veronica Cheren, Karina Gorkova, Dindyal Mursingh
+//* Student Number: 101069680, 100407074, 100831208, 101032995, 101083659
+//* Date: October 29, 2018
+//* Description: The class that handles logic and computation to reduce redundancy and keep the servlets lightweight.
+//*********************************************************************************
+
+
+
 package helper;
 
 import java.nio.charset.StandardCharsets;

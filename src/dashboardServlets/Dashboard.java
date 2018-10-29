@@ -1,3 +1,14 @@
+//*********************************************************************************
+//* Project: Lentil
+//* Assignment: Assignment # 1
+//* Author(s): Andrew Wilson, Justin Rolnick, Veronica Cheren, Karina Gorkova, Dindyal Mursingh
+//* Student Numbers: 101069680, 100407074, 100831208, 101032995, 101083659
+//* Date: October 29, 2018
+//* Description: Handles rendering the html for the Dashboard, redirects the users to login if they are not logged in.
+//*********************************************************************************
+
+
+
 package dashboardServlets;
 
 import java.io.IOException;
