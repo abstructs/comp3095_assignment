@@ -2,7 +2,6 @@ package helper;
 
 import java.sql.*;
 import helper.DatabaseAccess;
-import helper.HelperUtility;
 
 public class SQLHelper {
 	
@@ -56,7 +55,7 @@ public class SQLHelper {
 			
 			rs.next();
 			
-			// passwords are hashed on registration, in a real app the salt would of course be 
+			// passwords are hashed on registration, in a real application the salt would of course be 
 			// kept in a safe place.
 			// String passwordHash = HelperUtility.sha256(password, "salt");
 			// String databasePasswordHash = (String) rs.getObject("password");
@@ -104,7 +103,7 @@ public class SQLHelper {
 			ps.setString(2, lastName);
 			ps.setString(3, address);
 			ps.setString(4, email);
-			// passwords are hashed on registration, in a real app the salt would of course be 
+			// passwords are hashed on registration, in a real application the salt would of course be 
 			// kept in a safe place.
 			// ps.setString(5, HelperUtility.sha256(password, "salt"));
 			ps.setString(5, password);

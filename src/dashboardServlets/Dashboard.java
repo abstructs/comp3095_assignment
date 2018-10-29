@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import helper.HelperUtility;
-import helper.SQLHelper;
 
 @WebServlet("/Dashboard")
 public class Dashboard extends HttpServlet {
@@ -88,9 +87,4 @@ public class Dashboard extends HttpServlet {
 				"</html>\r\n"
 				);
 	}
-
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
-//	}
-
 }

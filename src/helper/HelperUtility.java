@@ -3,11 +3,9 @@ package helper;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import org.json.*;
@@ -27,7 +25,6 @@ public class HelperUtility {
 		return email == null || email.trim().equals("") || password == null || password.trim().equals("");
 	}
 	
-	
 	// converts a string to a sha256 hash
 	public static String sha256(String password, String salt) {
 		try {
@@ -38,7 +35,6 @@ public class HelperUtility {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	
 	public static String printHead(String title) {
@@ -73,6 +69,7 @@ public class HelperUtility {
 	        
 	        return json.getBoolean("success");
 	    } catch (Exception e) {
+	    	e.printStackTrace();
 	        return false;
 	    }
 	}
