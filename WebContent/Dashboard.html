@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Project Title - Login</title>
+<title>Lentil - Login</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="dashboardStyles.css">
 </head>
@@ -19,6 +19,15 @@
           <li class="nav-item"><a href="#/menu4">Tab 4</a></li>
           <li class="name nav-item ml-auto">Welcome, !</li>
 	      <li class="btn-logout ml-auto">
+	     	<form method="POST" action="Authenticate" class="form-inline">
+	     	<input type="hidden" name="logout" />
+	      	<button class="btn btn-primary" type="submit">Log Out</button>
+	    	</form>
+	      </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="name nav-item">Welcome, !</li>
+	      <li class="nav-item btn-logout">
 	     	<form method="POST" action="Authenticate" class="form-inline">
 	     	<input type="hidden" name="logout" />
 	      	<button class="btn btn-primary" type="submit">Log Out</button>

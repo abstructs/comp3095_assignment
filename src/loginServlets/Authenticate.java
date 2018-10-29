@@ -30,11 +30,11 @@ public class Authenticate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		if(request.getAttribute("logout") != null) {
+		if(request.getParameter("logout") != null) {
 			session.invalidate();
 			response.sendRedirect("Login.html");
 			return;
-		}
+		} 
 		
 		String email = (String) request.getAttribute("email");
 		String password = (String) request.getAttribute("password");
@@ -63,7 +63,4 @@ public class Authenticate extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	
-
 }

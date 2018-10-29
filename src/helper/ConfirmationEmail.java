@@ -16,12 +16,13 @@ public class ConfirmationEmail {
 	public static void send(String email, String firstName, String lastName) {
 		final String username = "comp3095@gmail.com";
 		final String password = "javaproject";
-		final String msgSubject = "Confirm your registration at [Project Name]";
+		final String msgSubject = "Confirm your registration at Lentil";
 		String name = firstName.substring(0,1).toUpperCase() + firstName.substring(1) + " " +
 						lastName.substring(0,1).toUpperCase() + lastName.substring(1);
 		
 		final String msgBody = "<h3>Hi, " + name + "!</h3>"
-				+ "You have successfully created an account at [Project Name] with email <i>" + email + "</i>.<br />" 
+				+ "Welcome to Lentil!<br />"
+				+ "You have successfully created an account with email <i>" + email + "</i>.<br />" 
 				+ "Please click <a href='http://localhost:8080/comp3095_assignment/Login.html'>here</a> to log in to your dashboard.";
 		
 		Properties props = new Properties();

@@ -11,19 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import helper.HelperUtility;
-import helper.SQLHelper;
 
-@WebServlet("/Dashboard")
-public class Dashboard extends HttpServlet {
+@WebServlet({ "/DashboardTab", "/tab1", "/tab2", "/tab3", "/tab4" })
+public class DashboardTab extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public Dashboard() {
+
+    public DashboardTab() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
 		
 		if(!HelperUtility.isAuthenticated(session)) {
 			response.sendRedirect("Login.html");
@@ -31,9 +29,7 @@ public class Dashboard extends HttpServlet {
 		}
 		
 		PrintWriter pw = response.getWriter();
-		
 	
-		
 		pw.print("<!DOCTYPE html>\r\n" + 
 				"<html>\r\n" + 
 				"<head>\r\n" + 
@@ -45,14 +41,14 @@ public class Dashboard extends HttpServlet {
 				"<body>\r\n" + 
 				"	<nav class=\"navbar navbar-light bg-light navbar-static-top\">\r\n" + 
 				"	  	<div class=\"navbar-brand\">\r\n" + 
-				"	  		Lentil\r\n" + 
+				"	  		<a href='Dashboard'>Lentil</a>\r\n" + 
 				"	  	</div>\r\n" + 
 				"	  <div class=\"container\" id=\"navbarSupportedContent\">\r\n" + 
 				"	    <ul class=\"nav nav-tabs navbar-nav\">\r\n" + 
 				"	      <li class=\"nav-item\"><a href=\"tab1\">Tab 1</a></li>\r\n" + 
 				"	      <li class=\"nav-item\"><a href=\"tab2\">Tab 2</a></li>\r\n" + 
 				"	      <li class=\"nav-item\"><a href=\"tab3\">Tab 3</a></li>\r\n" + 
-				"          <li class=\"nav-item\"><a href=\"tab4\">Tab 4</a></li>\r\n" +
+				"          <li class=\"nav-item\"><a href=\"tab4\">Tab 4</a></li>\r\n"+
 				"        </ul>\r\n" +
 				"        <ul class=\"nav navbar-nav navbar-right\">\r\n" + 
 				"          <li class=\"name nav-item\">Welcome, " + session.getAttribute("name") + "!</li>\r\n" + 
@@ -65,32 +61,13 @@ public class Dashboard extends HttpServlet {
 				"        </ul>" +
 				"	  </div>\r\n" + 
 				"	</nav>\r\n" + 
-				"	<div class=\"row\">\r\n" + 
-				"		<div class=\"col-xs-6\">\r\n" + 
-				"			<div class=\"future\">\r\n" + 
-				"				Future Enhancement\r\n" + 
-				"			</div>\r\n" + 
-				"		</div>\r\n" + 
-				"		<div class=\"col-xs-6\">\r\n" + 
-				"			<div class=\"future\">\r\n" + 
-				"				Future Enhancement\r\n" + 
-				"			</div>\r\n" + 
-				"		</div>\r\n" + 
-				"	</div>\r\n" + 
-				"	<div class=\"row\">\r\n" + 
-				"		<div class=\"col-xs-12\">\r\n" + 
-				"			<div class=\"future\">\r\n" + 
-				"				Future Enhancement\r\n" + 
-				"			</div>\r\n" + 
-				"		</div>\r\n" + 
-				"	</div>\r\n" + 
-				"</body>\r\n" + 
-				"</html>\r\n"
-				);
+				"   <h3 class='text-center'>Future Enhancement<h1>" +
+				"	<img src='"  + request.getContextPath() + "/images/underconstruction.png' />");
+		
 	}
 
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
-//	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }

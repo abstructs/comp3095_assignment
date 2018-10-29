@@ -23,7 +23,7 @@ public class Register extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 
-		pw.print(HelperUtility.printHead("Project Title - Register"));
+		pw.print(HelperUtility.printHead("Register"));
 		pw.print("<body>");
 
 		String firstName = request.getParameter("firstName");
