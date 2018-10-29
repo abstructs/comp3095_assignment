@@ -1,0 +1,13 @@
+
+
+.section {
+	border: 2px solid black;
+	padding: 5%;
+	margin: 5%;
+	height: 400px;
+}
+
+.logout-btn {
+	float:right;
+	margin-top: 15px;
+}
