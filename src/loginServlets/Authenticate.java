@@ -28,8 +28,17 @@ public class Authenticate extends HttpServlet {
         super();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		if(request.getAttribute("delete") != null) {
+			session.invalidate();
+			response.sendRedirect("Login.html");
+			return;
+		}
+		
 		String email = (String) request.getAttribute("email");
 		String password = (String) request.getAttribute("password");
+		
 		
 		if(!HelperUtility.credentialsSet(email, password)) {
 			 response.sendRedirect("ErrorLogin.html");
@@ -45,7 +54,7 @@ public class Authenticate extends HttpServlet {
 				return;
 			}
 
-			HttpSession session = request.getSession();
+			
 			session.setAttribute("email", email);
 			response.sendRedirect("Dashboard");
 			
@@ -54,5 +63,7 @@ public class Authenticate extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }

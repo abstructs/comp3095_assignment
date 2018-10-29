@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 DROP DATABASE IF EXISTS COMP3095;
 
 CREATE DATABASE IF NOT EXISTS COMP3095;
@@ -27,4 +26,13 @@ CREATE TABLE USERS
 	password char(64)	
 );
 
-INSERT INTO `USERS` (`firstname`, `lastname`, `email`, `role`, `password`) VALUES (NULL, NULL, 'admin@domain.ca', NULL, 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Peter', 'Yi', 'admin@domain.ca', 'admin', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Michael', 'Cheer', 'admin2@domain.ca', 'admin', 'P@ssword1');
+
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Andrew', 'Wilson', '11 Dupont St', 'fake1@email.com', 'user', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Jordan', 'Chan', '22 Spadina Rd', 'fake2@email.com', 'user', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Martin', 'Mitchel', '77 Bloor St', 'fake3@email.com', 'user', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Paul', 'Brown', '323 Rogers Way', 'fake4@email.com', 'user', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Steven', 'Smith', '88 Clarke St', 'fake5@email.com', 'user', 'P@ssword1');
+
+

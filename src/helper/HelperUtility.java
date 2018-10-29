@@ -12,7 +12,14 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import org.json.*;
 
+import javax.servlet.http.HttpSession;
+
 public class HelperUtility {
+	
+	public static boolean isAuthenticated(HttpSession session) {
+		return session.getAttribute("email") != null;
+	}
+	
 	public static Boolean credentialsSet(String email, String password) {
 		return email != null && password != null;
 	}
@@ -20,6 +27,8 @@ public class HelperUtility {
 		return email == null || email.trim().equals("") || password == null || password.trim().equals("");
 	}
 	
+	
+	// converts a string to a sha256 hash
 	public static String sha256(String password, String salt) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
