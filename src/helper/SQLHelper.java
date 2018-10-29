@@ -68,6 +68,26 @@ public class SQLHelper {
 		}
 	}
 		
+	public String getFirstName(String email) {
+		try {
+		PreparedStatement stmt = connection.prepareStatement("SELECT firstname FROM USERS WHERE email=?");
+		
+		stmt.setString(1, email);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		rs.next();
+		
+		String firstName = (String) rs.getString("firstname");
+		
+		return firstName;
+		
+		} catch(Exception e) {	
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public boolean registerUser(String firstName, String lastName, String address, String email, String password) throws SQLException {
 
 		try {

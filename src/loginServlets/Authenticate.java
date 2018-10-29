@@ -30,7 +30,7 @@ public class Authenticate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		if(request.getAttribute("delete") != null) {
+		if(request.getAttribute("logout") != null) {
 			session.invalidate();
 			response.sendRedirect("Login.html");
 			return;
@@ -53,9 +53,9 @@ public class Authenticate extends HttpServlet {
 				response.sendRedirect("ErrorLogin.html");
 				return;
 			}
-
 			
 			session.setAttribute("email", email);
+			session.setAttribute("name", sqlHelper.getFirstName(email));
 			response.sendRedirect("Dashboard");
 			
 			

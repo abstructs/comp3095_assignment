@@ -7,7 +7,25 @@
 	height: 400px;
 }
 
-.logout-btn {
-	float:right;
-	margin-top: 15px;
+ .navbar-brand,
+.navbar-nav li {
+  	margin-bottom:0px;
+}
+
+.navbar {
+	border-bottom: 1px solid grey;
+}
+
+.row {
+	margin: 20px;	
+}
+
+.future {
+	padding: 20px;
+	height: 400px;
+	border: 2px solid black;
+}
+
+.name {
+	margin: 12px;
 }
