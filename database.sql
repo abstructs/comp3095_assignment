@@ -26,8 +26,8 @@ CREATE TABLE USERS
 	password char(64)	
 );
 
-INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Peter', 'Yi', 'admin@domain.ca', 'admin', 'P@ssword1');
-INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Michael', 'Cheer', 'admin2@domain.ca', 'admin', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Peter', 'Yi', '99 Bathurst St', 'admin@domain.ca', 'admin', 'P@ssword1');
+INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Michael', 'Cheer', '66 Avenue Rd' 'admin2@domain.ca', 'admin', 'P@ssword1');
 
 INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Andrew', 'Wilson', '11 Dupont St', 'fake1@email.com', 'user', 'P@ssword1');
 INSERT INTO `USERS` (`firstname`, `lastname`, `address`, `email`, `role`, `password`) VALUES ('Jordan', 'Chan', '22 Spadina Rd', 'fake2@email.com', 'user', 'P@ssword1');
