@@ -54,7 +54,7 @@ public class Dashboard extends HttpServlet {
 				"	      <li class=\"nav-item\"><a href=\"tab3\">Tab 3</a></li>\r\n" + 
 				"          <li class=\"nav-item\"><a href=\"tab4\">Tab 4</a></li>\r\n" +
 				"        </ul>\r\n" +
-				"        <ul class=\"nav navbar-nav navbar-right\">\r\n" + 
+				"        <ul class=\"nav nav-tabs navbar-nav ml-auto navbar-right\">\r\n" + 
 				"          <li class=\"name nav-item\">Welcome, " + session.getAttribute("name") + "!</li>\r\n" + 
 				"	      <li class=\"nav-item btn-logout\">\r\n" + 
 				"	     	<form method=\"POST\" action=\"Authenticate\" class=\"form-inline\">\r\n" + 

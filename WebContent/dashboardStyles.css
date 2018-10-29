@@ -1,4 +1,6 @@
-
+body {	
+	background: #cecece;
+}
 
 .section {
 	border: 2px solid black;
@@ -14,6 +16,11 @@
 
 .navbar {
 	border-bottom: 1px solid grey;
+	background: #ececec;
+}
+
+.nav-tabs {
+	border: 0px solid black;
 }
 
 .row {
@@ -24,10 +31,19 @@
 	padding: 20px;
 	height: 400px;
 	border: 2px solid black;
+	background: #fff;
 }
 
 .name {
-	margin: 12px;
+	margin-top: 8px;
+	margin-right: 10px;
+}
+
+.navbar-right {
+	margin-top: 10px;
+}
+
+form {	
 }
 
 .text-center {
