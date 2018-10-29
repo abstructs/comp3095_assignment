@@ -49,6 +49,7 @@ public class Authenticate extends HttpServlet {
 		
 		try {
 			sqlHelper = new SQLHelper();
+			
 			if(!sqlHelper.emailExists(email) || !sqlHelper.validatePassword(email, password)) {
 				response.sendRedirect("ErrorLogin.html");
 				return;

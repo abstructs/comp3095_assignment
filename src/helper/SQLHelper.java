@@ -58,15 +58,20 @@ public class SQLHelper {
 			
 			// passwords are hashed on registration, in a real app the salt would of course be 
 			// kept in a safe place.
-			String passwordHash = HelperUtility.sha256(password, "salt");
-			String databasePasswordHash = (String) rs.getObject("password");
+			// String passwordHash = HelperUtility.sha256(password, "salt");
+			// String databasePasswordHash = (String) rs.getObject("password");
+			// return databasePasswordHash.equals(passwordHash);
 			
-			return databasePasswordHash.equals(passwordHash);
+			String databasePassword = (String) rs.getObject("password");
+			
+			return databasePassword.equals(password);
+			
 		} catch(Exception e) {	
 			e.printStackTrace();
 			return false;
 		}
 	}
+	
 		
 	public String getFirstName(String email) {
 		try {
@@ -101,13 +106,12 @@ public class SQLHelper {
 			ps.setString(4, email);
 			// passwords are hashed on registration, in a real app the salt would of course be 
 			// kept in a safe place.
-			ps.setString(5, HelperUtility.sha256(password, "salt"));
+			// ps.setString(5, HelperUtility.sha256(password, "salt"));
+			ps.setString(5, password);
 			ps.setString(6, "user");
-			
 			 
 			return ps.executeUpdate() == 1;
 		 
-		
 		} catch(SQLException e){
 			e.printStackTrace();
 			throw e;
